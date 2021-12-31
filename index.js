@@ -43,7 +43,8 @@ const presets = {
 /** Updates the default options with the user options */
 /** @param {object} userOptions : The options provided by the user */
 const setOptions = (userOptions) => {
-  defaultOptions = { ...defaultOptions, ...userOptions };
+  const options = { ...defaultOptions, ...userOptions };
+  return options;
 };
 
 /** Helper function, replaces the characters to be concealed in the provided string */
@@ -61,7 +62,6 @@ const replaceString = (
   const replaceWith = Array(toBeReplaced.length + 1).join(replacer);
 
   replacedString = text.replace(toBeReplaced, replaceWith);
-  console.log(replacedString);
   return replacedString;
 };
 
@@ -88,12 +88,10 @@ const formatString = (
   return parts.join(separator);
 };
 
-const formPlaceholder = (text, customOptions = null) => {
+const formPlaceholder = (text, customOptions = defaultOptions) => {
   let returnVal;
 
-  setOptions(customOptions);
-
-  options = defaultOptions;
+  options = setOptions(customOptions);
 
   if (options.format === true && options.separatorPos.length === 0) {
     throw 'Please set separator positions, if separator are not required then set format options to false';
@@ -104,9 +102,18 @@ const formPlaceholder = (text, customOptions = null) => {
   ) {
     throw 'One or more separator position out of text range';
   } else {
-    returnVal = options.replace ? replaceString(text) : text;
+    returnVal = options.replace
+      ? replaceString(
+          text,
+          options.replacer,
+          options.replaceStart,
+          options.replaceStop
+        )
+      : text;
 
-    returnVal = options.format ? formatString(returnVal) : returnVal;
+    returnVal = options.format
+      ? formatString(returnVal, options.separator, options.separatorPos)
+      : returnVal;
   }
   return returnVal;
 };
