@@ -1,6 +1,6 @@
 {
     "name": "form-placeholder",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Formats text in a text input field to either conceal some part of it or mske it appear in a certain format",
     "main": "index.js",
     "scripts": {
