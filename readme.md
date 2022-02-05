@@ -19,7 +19,7 @@ const { formPlaceholder, presets } = require('./index.js');
 
 console.log(formPlaceholder('7013067099', presets.phone));
 
-/* formPlaceholder takes two arguments. First thge string you want formatted and the second
+/* formPlaceholder takes two arguments. First the string you want formatted and the second
 * an object that contains the settings that determines how the string is formatted.
 A valid srecond parameter is one that contains one or more keys from the following object
 */
